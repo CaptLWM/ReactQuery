@@ -29,7 +29,7 @@ function AuthForm({isRegister}: AuthFormProps) {
 
   const onPress = () => {
     console.log('눌림????', loginLoading, registerLoading);
-    if (!isLoading) {
+    if (isLoading) {
       return;
     }
     if (isRegister) {
