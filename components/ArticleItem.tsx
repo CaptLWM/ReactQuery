@@ -1,5 +1,8 @@
+// 제목, 작성자, 날짜
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
+import {MainTabNvigationProp} from '../screens/types';
 
 export interface ArticleItemProps {
   id: number;
@@ -9,9 +12,9 @@ export interface ArticleItemProps {
 }
 
 function ArticleItem({id, title, publishedAt, username}: ArticleItemProps) {
+  const navigation = useNavigation<MainTabNvigationProp>();
   const onPress = () => {
-    // TODO : 눌렀을 때 게시글 열기
-    console.log(id);
+    navigation.navigate('Article', {id});
   };
 
   const formattedDate = new Date(publishedAt).toLocaleString();
