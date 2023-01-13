@@ -6,10 +6,13 @@ import ArticleScreen from './ArticleScreen';
 import RegisterScreen from './RegisterScreen';
 import LoginScreen from './LoginScreen';
 import MyArticleScreen from './MyArticleScreen';
+import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
+  // useUserState는 UserContextProvider로 감싼 컴포넌트 내부에서만 사용 가능
+  useAuthLoadEffect(); // 인증정보 불러오기
   return (
     <Stack.Navigator screenOptions={{headerBackTitle: '닫기'}}>
       <Stack.Screen

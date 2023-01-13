@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
+  View,
   StyleSheet,
+  Pressable,
+  Platform,
   Text,
   TextInput,
-  View,
+  KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 import useLogin from '../hooks/useLogin';
 import useRegister from '../hooks/useRegister';
@@ -28,14 +28,21 @@ function AuthForm({isRegister}: AuthFormProps) {
   const isLoading = loginLoading || registerLoading;
 
   const onPress = () => {
-    console.log('눌림????', loginLoading, registerLoading);
     if (isLoading) {
       return;
     }
+
     if (isRegister) {
-      register({email, username, password});
+      register({
+        email,
+        username,
+        password,
+      });
     } else {
-      login({identifier, password});
+      login({
+        identifier,
+        password,
+      });
     }
   };
 
