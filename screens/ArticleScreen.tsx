@@ -7,6 +7,7 @@ import {getArticle} from '../api/articles';
 import {getComments} from '../api/comment';
 import ArticleView from '../components/ArticleView';
 import CommentItem from '../components/CommentItem';
+import {useUserState} from '../contexts/UserContext';
 import {RootStackParamList} from './types';
 
 // id 라우트 파라미터 조회
@@ -15,6 +16,7 @@ type ArticleScreenRouteProp = RouteProp<RootStackParamList, 'Article'>;
 function ArticleScreen() {
   const {params} = useRoute<ArticleScreenRouteProp>();
   const {id} = params;
+  const [currentUser] = useUserState();
 
   const articleQuery = useQuery(['article', id], () => getArticle(id));
   const commentsQuery = useQuery(['comments', id], () => getComments(id));
@@ -30,6 +32,8 @@ function ArticleScreen() {
   }
 
   const {title, body, published_at, user} = articleQuery.data;
+  // 현재 사용자 정보와 게시글 정보 비교
+  const isMyArticle = currentUser?.id === user.id;
 
   return (
     // 댓글 많이 달리는 상황 고려하여 flatlist 사용
@@ -53,6 +57,8 @@ function ArticleScreen() {
           body={body}
           publishedAt={published_at}
           username={user.username}
+          id={id}
+          isMyArticle={isMyArticle}
         />
       }
     />
